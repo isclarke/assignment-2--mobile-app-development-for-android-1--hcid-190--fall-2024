@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,34 +16,33 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.matrixprogram.ui.theme.MatrixProgramTheme
 
 class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            MatrixProgramTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
+    setContent {
+      MatrixProgramTheme { // Use the correct theme
+        Surface(
+          modifier = Modifier.fillMaxSize(),
+          color = MaterialTheme.colorScheme.background
+        ) {
         }
+      }
     }
+  }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun GreetingText(message: String, modifier: Modifier = Modifier) {
+  Text(
+    text = message,
+    modifier = modifier // Apply the modifier here
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    MatrixProgramTheme {
-        Greeting("Android")
-    }
+fun MatrixPreview() {
+  MatrixProgramTheme { // Use the correct theme
+    GreetingText(message = "Enter a Number")
+  }
 }
