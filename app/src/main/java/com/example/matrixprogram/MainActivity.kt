@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContent {
-      MatrixProgramTheme { // Use the correct theme
+      MatrixProgramTheme {
         Surface(
           modifier = Modifier.fillMaxSize(),
           color = MaterialTheme.colorScheme.background
@@ -35,14 +35,14 @@ class MainActivity : ComponentActivity() {
 fun GreetingText(message: String, modifier: Modifier = Modifier) {
   Text(
     text = message,
-    modifier = modifier // Apply the modifier here
+    modifier = modifier
   )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun MatrixPreview() {
-  MatrixProgramTheme { // Use the correct theme
+  MatrixProgramTheme {
     GreetingText(message = "Enter a Number")
   }
 }
