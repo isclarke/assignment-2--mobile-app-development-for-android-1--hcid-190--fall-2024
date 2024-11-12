@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
 
   @Composable
   fun MatrixInput() {
-    var text by remember { mutableStateOf("Matrix Input")  }
+    var text by remember { mutableStateOf("")  }
     TextField(
       value = text,
       onValueChange = {text = it},
@@ -74,6 +74,9 @@ class MainActivity : ComponentActivity() {
   @Composable
   fun MatrixPreview() {
     MatrixProgramTheme {
-      GreetingText(message = "Enter a Number")
+      Column {
+        GreetingText(message = "Enter a Number")
+        MatrixInput()
+      }
     }
   }
