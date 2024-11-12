@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
     Text(
       text = message,
       modifier = modifier
+      
     )
   }
 
