@@ -10,7 +10,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +41,8 @@ class MainActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally
           ) {
             GreetingText(message = "Enter a Number")
+            Spacer(modifier = Modifier.height(16.dp))
+            MatrixInput() //input
           }
         }
       }
@@ -51,6 +58,18 @@ class MainActivity : ComponentActivity() {
     )
   }
 
+  @Composable
+  fun MatrixInput() {
+    var text by remember { mutableStateOf("Matrix Input")  }
+    TextField(
+      value = text,
+      onValueChange = {text = it},
+      label = {Text("Matrix Generator")}
+    )
+  }
+  }
+
+
   @Preview(showBackground = true)
   @Composable
   fun MatrixPreview() {
@@ -58,4 +77,3 @@ class MainActivity : ComponentActivity() {
       GreetingText(message = "Enter a Number")
     }
   }
-}
