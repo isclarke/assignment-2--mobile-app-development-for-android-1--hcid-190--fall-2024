@@ -161,7 +161,7 @@ class MainActivity : ComponentActivity() {
     for ((rowIndex, row) in matrix.withIndex()) {
       for ((columnIndex, num) in row.withIndex()) {
         if (columnIndex == size - 1 - rowIndex) {
-          output.append("${num.toString().padStart(width + 2)}* ")
+          output.append("${num.toString().padStart(width + 2)} ")
         } else {
           output.append("${num.toString().padStart(width + 2)} ")
         }
