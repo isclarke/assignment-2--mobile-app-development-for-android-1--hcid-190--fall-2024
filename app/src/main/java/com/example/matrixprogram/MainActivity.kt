@@ -17,8 +17,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.matrixprogram.ui.theme.MatrixProgramTheme
 
@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
           modifier = Modifier.fillMaxSize(),
           color = MaterialTheme.colorScheme.background
         ) {
-          //layout constraints
+          // Layout constraints
           Column(
             modifier = Modifier
               .fillMaxSize()
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
           ) {
             GreetingText(message = "Enter a Number")
             Spacer(modifier = Modifier.height(16.dp))
-            MatrixInput() //input
+            MatrixInput() // Input
           }
         }
       }
@@ -51,13 +51,7 @@ class MainActivity : ComponentActivity() {
 
   @Composable
   fun GreetingText(message: String, modifier: Modifier = Modifier) {
-    Text(
-      text = message,
-      modifier = modifier
-
-    )
-  }
-
+    Text(text = message, modifier = modifier)
   }
 
   @Composable
@@ -70,62 +64,68 @@ class MainActivity : ComponentActivity() {
       value = text,
       onValueChange = {
         text = it
-        matrixSize = it.toIntOrNull() ?: 0 // update size of matrix
+        matrixSize = it.toIntOrNull() ?: 0 // Update size of matrix
       },
       label = { Text("Matrix Generator") }
     )
 
     Button(onClick = {
-      matrixResult = "Your matrix is: $matrixSize x $matrixSize"
+      matrixResult = generateMatrix(matrixSize) // Call generateMatrix on button click
     }) {
-  Text("Generate")
-  }
+      Text("Generate")
+    }
+
     if (matrixResult.isNotEmpty()) {
       Text(text = matrixResult)
     }
+  }
+
+  // Function to generate and return the matrix
+  private fun generateMatrix(size: Int): String {
+    if (size <= 0) {
+      return "Invalid matrix size"
     }
 
-    fun generateMatrix(size:Int) : String {
+    val highlight: String = "\u001b[33m"
+    val reset: String = "\u001b[0m"
+    // Create matrix array
+    val matrix = Array(size) { IntArray(size) { 0 } }
+    val output = StringBuilder()
 
-      val highlight: String = "\u001b[33m"
-      val reset: String = "\u001b[0m"
-      //Create matrix array
-      val matrix = Array(size) { IntArray(size) { 0 } }
-      val output = StringBuilder()
+    // Print the matrix with zeros
+    output.append("Printing matrix with default value: \n")
+    output.append(defaultMatrix(matrix, highlight, reset))
 
-      //Print the matrix with zeros
-      output.append("Printing matrix with default value: \n")
-      output.append(defaultMatrix(matrix, highlight, reset))
+    // Print the matrix with increasing numbers
+    output.append("Printing matrix: \n")
+    output.append(numberMatrix(matrix, highlight, reset))
 
-      //Print the matrix with increasing numbers
-      output.append("Printing matrix: \n")
-      output.append(numberMatrix(matrix, highlight, reset))
+    // Print the matrix flipped
+    output.append("Printing flipped matrix: \n")
+    output.append(swapMatrix(matrix, highlight, reset))
 
-      //Print the matrix flipped
-      output.append("Printing flipped matrix: \n ")
-      output.append(swapMatrix(matrix, highlight, reset))
+    return output.toString()
+  }
 
-     return output.toString()
-    }
-   fun defaultMatrix(matrix: Array<IntArray>, highlight: String, reset: String): String {
-        val size = matrix.size
-        val width = (size * size).toString().length
-        val output = StringBuilder()
+  fun defaultMatrix(matrix: Array<IntArray>, highlight: String, reset: String): String {
+    val size = matrix.size
+    val width = (size * size).toString().length
+    val output = StringBuilder()
 
-        for ((rowIndex, row) in matrix.withIndex()) {
-          for ((columnIndex, num) in row.withIndex()) {
-            if (columnIndex == size - 1 - rowIndex) {
-              output.append("${highlight}${num.toString().padStart(width + 2)}${reset} ")
-            } else {
-              output.append("${num.toString().padStart(width + 2)} ")
-            }
-          }
-          output.append("\n")
+    for ((rowIndex, row) in matrix.withIndex()) {
+      for ((columnIndex, num) in row.withIndex()) {
+        if (columnIndex == size - 1 - rowIndex) {
+          output.append("${highlight}${num.toString().padStart(width + 2)}${reset} ")
+        } else {
+          output.append("${num.toString().padStart(width + 2)} ")
         }
-        return output.toString()
       }
+      output.append("\n")
+    }
+    return output.toString()
+  }
 
-  fun numberMatrix(matrix: Array<IntArray>, HIGHLIGHT: String, RESET: String): String {
+  fun numberMatrix(matrix: Array<IntArray>, highlight: String, reset: String): String {
     val size = matrix.size
     var count = 1
     // Width value used to get perfect spacing
@@ -136,7 +136,7 @@ class MainActivity : ComponentActivity() {
       for ((columnIndex, _) in row.withIndex()) {
         // Test if the index is right to left diagonal
         if (columnIndex == size - 1 - rowIndex) {
-          output.append("${HIGHLIGHT}${count.toString().padStart(width + 2)}${RESET} ")
+          output.append("${highlight}${count.toString().padStart(width + 2)}${reset} ")
         } else {
           output.append("${count.toString().padStart(width + 2)} ")
         }
@@ -147,21 +147,35 @@ class MainActivity : ComponentActivity() {
     return output.toString()
   }
 
+  private fun swapMatrix(matrix: Array<IntArray>, highlight: String, reset: String): String {
+    val size = matrix.size
+    // Width value used to get perfect spacing
+    val width = (size * size).toString().length
+    val output = StringBuilder()
 
+    for (rowIndex in 0 until size) {
+      for (columnIndex in 0 until size) {
+        val temp = (size * size) - (rowIndex * size + columnIndex)
 
-
-
-
-
-}
-    @Preview(showBackground = true)
-    @Composable
-    fun MatrixPreview() {
-      MatrixProgramTheme {
-        Column {
-          MainActivity().GreetingText(message = "Enter a Number")
-          MainActivity().MatrixInput()
+        if (columnIndex == size - 1 - rowIndex) {
+          output.append("${highlight}${(rowIndex * size + columnIndex + 1).toString().padStart(width + 2)}${reset} ")
+        } else {
+          output.append("${temp.toString().padStart(width + 2)} ")
         }
+      }
+      output.append("\n")
+    }
+    return output.toString()
+  }
+
+  @Preview(showBackground = true)
+  @Composable
+  fun MatrixPreview() {
+    MatrixProgramTheme {
+      Column {
+        GreetingText(message = "Enter a Number")
+        MatrixInput()
       }
     }
   }
+}
