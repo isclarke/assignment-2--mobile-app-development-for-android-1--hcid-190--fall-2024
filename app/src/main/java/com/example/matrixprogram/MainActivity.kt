@@ -68,9 +68,12 @@ class MainActivity : ComponentActivity() {
       value = text,
       onValueChange = {
         text = it
-      }
-
+        matrixSize = it.toIntOrNull() ?: 0 // update size of matrix
+      },
+      label = {Text("Matrix Generator")}
     )
+
+    Text(text = "Your matrix size: $matrixSize")
 
   @Preview(showBackground = true)
   @Composable
