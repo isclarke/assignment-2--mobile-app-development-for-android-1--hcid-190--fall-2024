@@ -55,12 +55,12 @@ class MainActivity : ComponentActivity() {
     }
   }
 
-  @Composable
+  @Composable // first message of app
   fun GreetingText(message: String, modifier: Modifier = Modifier) {
     Text(text = message, modifier = modifier)
   }
 
-  @Composable
+  @Composable // function that handles input from user
   fun MatrixInput() {
     var text by remember { mutableStateOf("") }
     var matrixSize by remember { mutableStateOf(0) }
@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
       modifier = Modifier
         .fillMaxWidth()
         .verticalScroll(rememberScrollState())
-        .padding(16.dp), // Optional padding for aesthetics
+        .padding(16.dp), // padding
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
       for (line in lines) {
