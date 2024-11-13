@@ -61,6 +61,9 @@ class MainActivity : ComponentActivity() {
   @Composable
   fun MatrixInput() {
     var text by remember { mutableStateOf("")  }
+    var matrixSize by remember { mutableStateOf(0) }
+    var matrixResult by remember { mutableStateOf("") }
+    
     TextField(
       value = text,
       onValueChange = {text = it},
