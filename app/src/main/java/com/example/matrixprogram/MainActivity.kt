@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
     )
 
     Button(onClick = {
-      matrixResult = "Your matrix is: ${matrixSize} x ${matrixSize}"
+      matrixResult = "Your matrix is: $matrixSize x $matrixSize"
       generateMatrix(matrixSize)
     }) {
   Text("Generate")
@@ -86,16 +86,16 @@ class MainActivity : ComponentActivity() {
     }
 
     fun generateMatrix() {
-      
+
       val highlight: String = "\u001b[33m"
       val reset: String = "\u001b[0m"
       val number = matrixSize
       //Create matrix array
       val matrix = Array(number) { IntArray(number) { 0 } }
-      var output = StringBuilder()
+      val output = StringBuilder()
 
       //Print the matrix with zeros
-      output.append("Printing matrix with deafult value: \n")
+      output.append("Printing matrix with default value: \n")
       output.append(defaultMatrix(matrix, highlight, reset))
 
       //Print the matrix with increasing numbers
@@ -106,15 +106,18 @@ class MainActivity : ComponentActivity() {
       output.append("Printing flipped matrix: \n ")
       output.append(swapMatrix(matrix, highlight, reset))
 
+      matrixResult = output.toString()
+    }
       // Function to get default matrix with zeros
-      fun defaultMatrix(matrix: Array<IntArray>, HIGHLIGHT: String, RESET: String): String {
+      fun defaultMatrix(matrix: Array<IntArray>, highlight: String, reset: String): String {
         val size = matrix.size
         val width = (size * size).toString().length
+        val output = StringBuilder()
 
         for ((rowIndex, row) in matrix.withIndex()) {
           for ((columnIndex, num) in row.withIndex()) {
             if (columnIndex == size - 1 - rowIndex) {
-              output.append("${HIGHLIGHT}${num.toString().padStart(width + 2)}${RESET} ")
+              output.append("${highlight}${num.toString().padStart(width + 2)}${reset} ")
             } else {
               output.append("${num.toString().padStart(width + 2)} ")
             }
