@@ -75,8 +75,20 @@ class MainActivity : ComponentActivity() {
       Text("Generate")
     }
 
+    Spacer(modifier = Modifier.height(16.dp))
+
     if (matrixResult.isNotEmpty()) {
-      Text(text = matrixResult)
+      MatrixOutput(matrixResult)
+    }
+  }
+
+  @Composable
+  fun MatrixOutput(matrixResult: String) {
+    val lines = matrixResult.split("\n")
+    Column(modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())) {
+      for (line in lines) {
+        BasicText(text = line)
+      }
     }
   }
 
@@ -86,28 +98,26 @@ class MainActivity : ComponentActivity() {
       return "Invalid matrix size"
     }
 
-    val highlight: String = "\u001b[33m"
-    val reset: String = "\u001b[0m"
     // Create matrix array
     val matrix = Array(size) { IntArray(size) { 0 } }
     val output = StringBuilder()
 
     // Print the matrix with zeros
     output.append("Printing matrix with default value: \n")
-    output.append(defaultMatrix(matrix, highlight, reset))
+    output.append(defaultMatrix(matrix))
 
     // Print the matrix with increasing numbers
     output.append("Printing matrix: \n")
-    output.append(numberMatrix(matrix, highlight, reset))
+    output.append(numberMatrix(matrix))
 
     // Print the matrix flipped
     output.append("Printing flipped matrix: \n")
-    output.append(swapMatrix(matrix, highlight, reset))
+    output.append(swapMatrix(matrix))
 
     return output.toString()
   }
 
-  fun defaultMatrix(matrix: Array<IntArray>, highlight: String, reset: String): String {
+  private fun defaultMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
     val width = (size * size).toString().length
     val output = StringBuilder()
@@ -115,7 +125,7 @@ class MainActivity : ComponentActivity() {
     for ((rowIndex, row) in matrix.withIndex()) {
       for ((columnIndex, num) in row.withIndex()) {
         if (columnIndex == size - 1 - rowIndex) {
-          output.append("${highlight}${num.toString().padStart(width + 2)}${reset} ")
+          output.append("${num.toString().padStart(width + 2)}* ") // Highlight with asterisk
         } else {
           output.append("${num.toString().padStart(width + 2)} ")
         }
@@ -125,7 +135,7 @@ class MainActivity : ComponentActivity() {
     return output.toString()
   }
 
-  fun numberMatrix(matrix: Array<IntArray>, highlight: String, reset: String): String {
+  private fun numberMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
     var count = 1
     // Width value used to get perfect spacing
@@ -136,7 +146,7 @@ class MainActivity : ComponentActivity() {
       for ((columnIndex, _) in row.withIndex()) {
         // Test if the index is right to left diagonal
         if (columnIndex == size - 1 - rowIndex) {
-          output.append("${highlight}${count.toString().padStart(width + 2)}${reset} ")
+          output.append("${count.toString().padStart(width + 2)}* ") // Highlight with asterisk
         } else {
           output.append("${count.toString().padStart(width + 2)} ")
         }
@@ -147,18 +157,20 @@ class MainActivity : ComponentActivity() {
     return output.toString()
   }
 
-  private fun swapMatrix(matrix: Array<IntArray>, highlight: String, reset: String): String {
+  private fun swapMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
+    val output = StringBuilder()
     // Width value used to get perfect spacing
     val width = (size * size).toString().length
-    val output = StringBuilder()
 
-    for (rowIndex in 0 until size) {
-      for (columnIndex in 0 until size) {
+    for ((rowIndex, row) in matrix.withIndex()) {
+      for ((columnIndex, _) in row.withIndex()) {
+        // Calculate the value to be placed in the matrix
         val temp = (size * size) - (rowIndex * size + columnIndex)
 
+        // Highlight the right to left diagonal
         if (columnIndex == size - 1 - rowIndex) {
-          output.append("${highlight}${(rowIndex * size + columnIndex + 1).toString().padStart(width + 2)}${reset} ")
+          output.append("${temp.toString().padStart(width + 2)}* ") // Highlight with asterisk
         } else {
           output.append("${temp.toString().padStart(width + 2)} ")
         }
@@ -167,15 +179,6 @@ class MainActivity : ComponentActivity() {
     }
     return output.toString()
   }
-
-  @Preview(showBackground = true)
-  @Composable
-  fun MatrixPreview() {
-    MatrixProgramTheme {
-      Column {
-        GreetingText(message = "Enter a Number")
-        MatrixInput()
-      }
-    }
-  }
 }
+
+
