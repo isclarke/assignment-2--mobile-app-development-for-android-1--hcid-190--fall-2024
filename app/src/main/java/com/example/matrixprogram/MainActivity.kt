@@ -63,15 +63,14 @@ class MainActivity : ComponentActivity() {
     var text by remember { mutableStateOf("")  }
     var matrixSize by remember { mutableStateOf(0) }
     var matrixResult by remember { mutableStateOf("") }
-    
+
     TextField(
       value = text,
-      onValueChange = {text = it},
-      label = {Text("Matrix Generator")}
-    )
-  }
-  }
+      onValueChange = {
+        text = it
+      }
 
+    )
 
   @Preview(showBackground = true)
   @Composable
