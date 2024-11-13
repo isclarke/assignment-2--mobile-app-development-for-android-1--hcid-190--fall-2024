@@ -78,9 +78,17 @@ class MainActivity : ComponentActivity() {
 
     Button(onClick = {
       matrixResult = "Your matrix is: ${matrixSize} x ${matrixSize}"
+      generateMatrix(matrixSize)
+    }) {
+  Text("Generate")
+  }
+    if (matrixResult.isNotEmpty()) {
+      Text(text = matrixResult)
     }
 
-
+    fun generateMatrix() {
+      
+    }
     @Preview(showBackground = true)
     @Composable
     fun MatrixPreview() {
