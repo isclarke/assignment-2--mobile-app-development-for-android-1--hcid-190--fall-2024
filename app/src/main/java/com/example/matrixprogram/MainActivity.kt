@@ -87,7 +87,9 @@ class MainActivity : ComponentActivity() {
     }
 
     fun generateMatrix() {
-      
+      val HIGHLIGHT: String = "\u001b[33m"
+      val RESET: String = "\u001b[0m"
+
     }
     @Preview(showBackground = true)
     @Composable
