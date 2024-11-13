@@ -70,12 +70,15 @@ class MainActivity : ComponentActivity() {
         Row(modifier = Modifier.fillMaxWidth()) {
           val numbers = line.trim().split(" ")
           for ((columnIndex, number) in numbers.withIndex()) {
-            val isDiagonal = columnIndex == matrixSize - 1 - rowIndex
+            val isDiagonal = columnIndex == rowIndex || columnIndex == matrixSize - 1 - rowIndex
             val textColor = if (isDiagonal) Color.Red else Color.Black // Change color for diagonal
             Text(
               text = number,
               color = textColor,
-              modifier = Modifier.padding(4.dp).weight(1f),
+              modifier = Modifier
+                .padding(4.dp) // Adjust padding for uniform spacing
+                .weight(1f)
+                .width(40.dp), // Fixed width to prevent vertical stacking
               textAlign = TextAlign.Center
             )
           }
@@ -83,7 +86,8 @@ class MainActivity : ComponentActivity() {
       }
     }
   }
-  @Composable // function that handles input from user
+
+  @Composable
   fun MatrixInput() {
     var text by remember { mutableStateOf("") }
     var matrixSize by remember { mutableStateOf(0) }
@@ -107,23 +111,7 @@ class MainActivity : ComponentActivity() {
     Spacer(modifier = Modifier.height(16.dp))
 
     if (matrixResult.isNotEmpty()) {
-      MatrixOutput(matrixResult)
-    }
-  }
-
-  @Composable
-  fun MatrixOutput(matrixResult: String) {
-    val lines = matrixResult.split("\n")
-    Column(
-      modifier = Modifier
-        .fillMaxWidth()
-        .verticalScroll(rememberScrollState())
-        .padding(16.dp), // padding
-      horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-      for (line in lines) {
-        BasicText(text = line)
-      }
+      MatrixWithColoredDiagonals(matrixSize, matrixResult) // Call the function here
     }
   }
 
@@ -182,7 +170,7 @@ class MainActivity : ComponentActivity() {
       for ((columnIndex, _) in row.withIndex()) {
         // Test if the index is right to left diagonal
         if (columnIndex == size - 1 - rowIndex) {
-          output.append("${count.toString().padStart(width + 2)}* ") // Highlight with asterisk
+          output.append("${count.toString().padStart(width + 2)} ") // Highlight with asterisk
         } else {
           output.append("${count.toString().padStart(width + 2)} ")
         }
@@ -206,7 +194,7 @@ class MainActivity : ComponentActivity() {
 
         // Highlight the right to left diagonal
         if (columnIndex == size - 1 - rowIndex) {
-          output.append("${temp.toString().padStart(width + 2)}* ")
+          output.append("${temp.toString().padStart(width + 2)} ")
         } else {
           output.append("${temp.toString().padStart(width + 2)} ")
         }
