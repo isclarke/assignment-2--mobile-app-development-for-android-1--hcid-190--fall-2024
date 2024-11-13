@@ -22,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.matrixprogram.ui.theme.MatrixProgramTheme
+import androidx.compose.ui.graphics.Color // Import for color=
+import androidx.compose.ui.text.style.TextAlign // Import for text alignment
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +62,27 @@ class MainActivity : ComponentActivity() {
     Text(text = message, modifier = modifier)
   }
 
+  @Composable
+  fun MatrixWithColoredDiagonals(matrixSize: Int, matrixString: String) {
+    val lines = matrixString.split("\n").filter { it.isNotEmpty() }
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+      for ((rowIndex, line) in lines.withIndex()) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+          val numbers = line.trim().split(" ")
+          for ((columnIndex, number) in numbers.withIndex()) {
+            val isDiagonal = columnIndex == matrixSize - 1 - rowIndex
+            val textColor = if (isDiagonal) Color.Red else Color.Black // Change color for diagonal
+            Text(
+              text = number,
+              color = textColor,
+              modifier = Modifier.padding(4.dp).weight(1f),
+              textAlign = TextAlign.Center
+            )
+          }
+        }
+      }
+    }
+  }
   @Composable // function that handles input from user
   fun MatrixInput() {
     var text by remember { mutableStateOf("") }
@@ -138,7 +161,7 @@ class MainActivity : ComponentActivity() {
     for ((rowIndex, row) in matrix.withIndex()) {
       for ((columnIndex, num) in row.withIndex()) {
         if (columnIndex == size - 1 - rowIndex) {
-          output.append("${num.toString().padStart(width + 2)}* ") // Highlight with asterisk
+          output.append("${num.toString().padStart(width + 2)}* ")
         } else {
           output.append("${num.toString().padStart(width + 2)} ")
         }
@@ -183,7 +206,7 @@ class MainActivity : ComponentActivity() {
 
         // Highlight the right to left diagonal
         if (columnIndex == size - 1 - rowIndex) {
-          output.append("${temp.toString().padStart(width + 2)}* ") // Highlight with asterisk
+          output.append("${temp.toString().padStart(width + 2)}* ")
         } else {
           output.append("${temp.toString().padStart(width + 2)} ")
         }
