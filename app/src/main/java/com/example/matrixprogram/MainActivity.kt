@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -17,11 +19,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.foundation.text.BasicText
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.runtime.remember
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.matrixprogram.ui.theme.MatrixProgramTheme
@@ -37,16 +34,21 @@ class MainActivity : ComponentActivity() {
           color = MaterialTheme.colorScheme.background
         ) {
           // Layout constraints
-          Column(
-            modifier = Modifier
-              .fillMaxSize()
-              .padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+          Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
           ) {
-            GreetingText(message = "Enter a Number")
-            Spacer(modifier = Modifier.height(16.dp))
-            MatrixInput() // Input
+            Column(
+              modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+              verticalArrangement = Arrangement.Center,
+              horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+              GreetingText(message = "Enter a Number")
+              Spacer(modifier = Modifier.height(16.dp))
+              MatrixInput() // Input
+            }
           }
         }
       }
@@ -89,7 +91,13 @@ class MainActivity : ComponentActivity() {
   @Composable
   fun MatrixOutput(matrixResult: String) {
     val lines = matrixResult.split("\n")
-    Column(modifier = Modifier.fillMaxWidth().verticalScroll(rememberScrollState())) {
+    Column(
+      modifier = Modifier
+        .fillMaxWidth()
+        .verticalScroll(rememberScrollState())
+        .padding(16.dp), // Optional padding for aesthetics
+      horizontalAlignment = Alignment.CenterHorizontally
+    ) {
       for (line in lines) {
         BasicText(text = line)
       }
