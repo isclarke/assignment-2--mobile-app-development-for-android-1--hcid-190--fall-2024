@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
       output.append("Printing flipped matrix: \n ")
       output.append(swapMatrix(matrix, highlight, reset))
 
-      matrixResult = output.toString()
+     return output.toString()
     }
    fun defaultMatrix(matrix: Array<IntArray>, highlight: String, reset: String): String {
         val size = matrix.size
@@ -125,11 +125,35 @@ class MainActivity : ComponentActivity() {
         return output.toString()
       }
 
+  fun numberMatrix(matrix: Array<IntArray>, HIGHLIGHT: String, RESET: String): String {
+    val size = matrix.size
+    var count = 1
+    // Width value used to get perfect spacing
+    val width = (size * size).toString().length
+    val output = StringBuilder()
 
-
-
-
+    for ((rowIndex, row) in matrix.withIndex()) {
+      for ((columnIndex, _) in row.withIndex()) {
+        // Test if the index is right to left diagonal
+        if (columnIndex == size - 1 - rowIndex) {
+          output.append("${HIGHLIGHT}${count.toString().padStart(width + 2)}${RESET} ")
+        } else {
+          output.append("${count.toString().padStart(width + 2)} ")
+        }
+        count++
+      }
+      output.append("\n")
     }
+    return output.toString()
+  }
+
+
+
+
+
+
+
+}
     @Preview(showBackground = true)
     @Composable
     fun MatrixPreview() {
