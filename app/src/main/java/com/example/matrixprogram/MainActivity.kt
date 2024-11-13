@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -73,7 +74,13 @@ class MainActivity : ComponentActivity() {
       label = {Text("Matrix Generator")}
     )
 
-    Text(text = "Your matrix size: $matrixSize")
+    Button(onClick = {
+      matrixResult = "Your matrix is: ${matrixSize} x ${matrixSize}"
+        generateMatrix(matrixSize)
+    }
+
+
+
 
   @Preview(showBackground = true)
   @Composable
