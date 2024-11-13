@@ -94,6 +94,19 @@ class MainActivity : ComponentActivity() {
       val matrix = Array(number) { IntArray(number) { 0 } }
       var output = StringBuilder()
 
+      //Print the matrix with zeros
+      output.append("Printing matrix with deafult value: \n")
+      output.append(defaultMatrix(matrix, HIGHLIGHT, RESET))
+
+      //Print the matrix with increasing numbers
+      output.append("Printing matrix: \n")
+      output.append(numberMatrix(matrix, HIGHLIGHT, RESET))
+
+      //Print the matrix flipped
+      output.append("Printing flipped matrix: \n ")
+      output.append(swapMatrix(matrix, HIGHLIGHT, RESET))
+
+
 
     }
     @Preview(showBackground = true)
