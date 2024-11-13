@@ -89,6 +89,11 @@ class MainActivity : ComponentActivity() {
     fun generateMatrix() {
       val HIGHLIGHT: String = "\u001b[33m"
       val RESET: String = "\u001b[0m"
+      val number = matrixSize
+      //Create matrix array
+      val matrix = Array(number) { IntArray(number) { 0 } }
+      var output = StringBuilder()
+
 
     }
     @Preview(showBackground = true)
