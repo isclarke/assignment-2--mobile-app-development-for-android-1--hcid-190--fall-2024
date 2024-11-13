@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -87,8 +86,9 @@ class MainActivity : ComponentActivity() {
     }
 
     fun generateMatrix() {
-      val HIGHLIGHT: String = "\u001b[33m"
-      val RESET: String = "\u001b[0m"
+      
+      val highlight: String = "\u001b[33m"
+      val reset: String = "\u001b[0m"
       val number = matrixSize
       //Create matrix array
       val matrix = Array(number) { IntArray(number) { 0 } }
@@ -96,15 +96,33 @@ class MainActivity : ComponentActivity() {
 
       //Print the matrix with zeros
       output.append("Printing matrix with deafult value: \n")
-      output.append(defaultMatrix(matrix, HIGHLIGHT, RESET))
+      output.append(defaultMatrix(matrix, highlight, reset))
 
       //Print the matrix with increasing numbers
       output.append("Printing matrix: \n")
-      output.append(numberMatrix(matrix, HIGHLIGHT, RESET))
+      output.append(numberMatrix(matrix, highlight, reset))
 
       //Print the matrix flipped
       output.append("Printing flipped matrix: \n ")
-      output.append(swapMatrix(matrix, HIGHLIGHT, RESET))
+      output.append(swapMatrix(matrix, highlight, reset))
+
+      // Function to get default matrix with zeros
+      fun defaultMatrix(matrix: Array<IntArray>, HIGHLIGHT: String, RESET: String): String {
+        val size = matrix.size
+        val width = (size * size).toString().length
+
+        for ((rowIndex, row) in matrix.withIndex()) {
+          for ((columnIndex, num) in row.withIndex()) {
+            if (columnIndex == size - 1 - rowIndex) {
+              output.append("${HIGHLIGHT}${num.toString().padStart(width + 2)}${RESET} ")
+            } else {
+              output.append("${num.toString().padStart(width + 2)} ")
+            }
+          }
+          output.append("\n")
+        }
+        return output.toString()
+      }
 
 
 
