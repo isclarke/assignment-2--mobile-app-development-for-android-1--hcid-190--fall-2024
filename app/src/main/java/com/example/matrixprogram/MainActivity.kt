@@ -59,6 +59,10 @@ class MainActivity : ComponentActivity() {
     )
   }
 
+  private fun Button(onClick: () -> Unit, modifier: (Int) -> Unit) {
+
+  }
+
   @Composable
   fun MatrixInput() {
     var text by remember { mutableStateOf("")  }
@@ -79,7 +83,91 @@ class MainActivity : ComponentActivity() {
         generateMatrix(matrixSize)
     }
 
+    fun generateMatrix() {
 
+      val HIGHLIGHT: String = "\u001b[33m"
+      val RESET: String = "\u001b[0m"
+
+      val matrix = Array(number) { IntArray(number) { 0 } }
+
+      //Print the matrix with zeros
+      println("Printing matrix with deafult value:")
+      defaultMatrix(matrix, HIGHLIGHT, RESET)
+
+      //Print the matrix with increasing numbers
+      println("Printing matrix:")
+      numberMatrix(matrix, HIGHLIGHT, RESET)
+
+      //Print the matrix flipped
+      println("Printing flipped matrix:")
+      swapMatrix(matrix, HIGHLIGHT, RESET)
+
+      //Function to get deafult matrix with zeros
+      fun defaultMatrix(matrix: Array<IntArray>, HIGHLIGHT: String, RESET: String) {
+        val size = matrix.size
+        //Width value used to get perfect spacing
+        val width = (size * size).toString().length
+
+        for((rowIndex, row) in matrix.withIndex()) {
+          for((columnIndex, num) in row.withIndex()) {
+            if (columnIndex == size - 1 - rowIndex) {
+              print("${HIGHLIGHT}${num.toString().padStart(width + 2)}${RESET} ")
+            }
+            else {
+              print("${num.toString().padStart(width + 2)} ")
+            }
+          }
+          println("")
+        }
+      }
+
+      fun numberMatrix(matrix: Array<IntArray>, HIGHLIGHT: String, RESET: String) {
+        val size = matrix.size
+        var count: Int = 1
+        //Width value used to get perfect spacing
+        val width = (size * size).toString().length
+
+        for((rowIndex, row) in matrix.withIndex()) {
+          for((columnIndex, i) in row.withIndex()) {
+            //Test if the index is right to left diagonal
+            if(columnIndex == size - 1 - rowIndex) {
+              print("${HIGHLIGHT}${count.toString().padStart(width + 2)}${RESET} ")
+            }
+            //If it's not it doesnt get a highlight
+            else {
+              print("${count.toString().padStart(width + 2)} ")
+            }
+            count++
+          }
+          println("")
+        }
+      }
+
+      fun swapMatrix(matrix: Array<IntArray>, HIGHLIGHT: String, RESET: String) {
+        val size = matrix.size
+        //Create temp variable
+        var temp: Int
+        //Width value used to get perfect spacing
+        val width = (size * size).toString().length
+
+        for((rowIndex, row) in matrix.withIndex()) {
+          for((columnIndex, i) in row.withIndex()) {
+            temp = (size * size) - (rowIndex * size + columnIndex)
+
+            if(columnIndex == size - 1 - rowIndex) {
+              print("${HIGHLIGHT}${(rowIndex * size + columnIndex + 1).toString().padStart(width + 2)}${RESET} ")
+            }
+            else {
+              print("${temp.toString().padStart(width + 2)} ")
+            }
+            println("")
+          }
+        }
+
+      }
+
+
+    }    }
 
 
   @Preview(showBackground = true)
