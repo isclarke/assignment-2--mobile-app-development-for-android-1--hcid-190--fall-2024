@@ -131,7 +131,8 @@ class MainActivity : ComponentActivity() {
 
   private fun defaultMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
-    val width = (size * size).toString().length
+    val maxNumber = size * size
+    val width = maxNumber.toString().length
     val output = StringBuilder()
 
     for ((rowIndex, row) in matrix.withIndex()) {
@@ -150,8 +151,8 @@ class MainActivity : ComponentActivity() {
   private fun numberMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
     var count = 1
-    // Width value used to get perfect spacing
-    val width = (size * size).toString().length
+    val maxNumber = size * size
+    val width = maxNumber.toString().length
     val output = StringBuilder()
 
     for ((rowIndex, row) in matrix.withIndex()) {
@@ -172,8 +173,8 @@ class MainActivity : ComponentActivity() {
   private fun swapMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
     val output = StringBuilder()
-    // Width value used to get perfect spacing
-    val width = (size * size).toString().length
+    val maxNumber = size * size
+    val width = maxNumber.toString().length
 
     for ((rowIndex, row) in matrix.withIndex()) {
       for ((columnIndex, _) in row.withIndex()) {
@@ -192,5 +193,3 @@ class MainActivity : ComponentActivity() {
     return output.toString()
   }
 }
-
-
