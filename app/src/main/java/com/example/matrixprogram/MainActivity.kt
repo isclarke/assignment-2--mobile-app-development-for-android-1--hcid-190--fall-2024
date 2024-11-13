@@ -75,8 +75,8 @@ class MainActivity : ComponentActivity() {
   fun MatrixPreview() {
     MatrixProgramTheme {
       Column {
-        GreetingText(message = "Enter a Number")
-        MatrixInput()
+        MainActivity().GreetingText(message = "Enter a Number")
+        MainActivity().MatrixInput()
       }
     }
   }
