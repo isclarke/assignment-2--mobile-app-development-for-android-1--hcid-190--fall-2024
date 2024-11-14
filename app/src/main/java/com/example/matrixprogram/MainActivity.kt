@@ -74,7 +74,7 @@ class MainActivity : ComponentActivity() {
               text = number,
               color = textColor,
               modifier = Modifier
-                .width(50.dp) // Set a fixed width for better alignment
+                .width(10.dp) // Set a fixed width for better alignment
                 .padding(4.dp),
               textAlign = TextAlign.Center
             )
