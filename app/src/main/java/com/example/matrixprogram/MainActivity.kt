@@ -56,9 +56,27 @@ class MainActivity : ComponentActivity() {
   }
 
   @Composable
-  fun matrixOutput() {
-    Te
+  fun MatrixOutput(matrixSize: Int, matrixString: String) {
+    val lines = matrixString.split("\n").filter { it.isNotEmpty() }
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+      for (line in lines) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+          val numbers = line.trim().split(" ")
+          for (number in numbers) {
+            Text(
+              text = number,
+              color = Color.Black, // Default color
+              modifier = Modifier
+                .weight(1f) // Use weight to evenly distribute space
+                .padding(4.dp), // Padding around each number
+              textAlign = TextAlign.Center
+            )
+          }
+        }
+      }
+    }
   }
+
 
 
   @Composable
@@ -90,7 +108,7 @@ class MainActivity : ComponentActivity() {
     Spacer(modifier = Modifier.height(16.dp))
 
     if (matrixResult.isNotEmpty()) {
-      matrixOutput(matrixSize, matrixResult)
+      MatrixOutput(matrixSize, matrixResult)
     }
   }
 
