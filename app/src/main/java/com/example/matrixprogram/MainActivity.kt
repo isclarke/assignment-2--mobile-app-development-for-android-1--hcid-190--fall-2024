@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
               verticalArrangement = Arrangement.Center,
               horizontalAlignment = Alignment.CenterHorizontally
             ) {
-              GreetingText(message = "Enter a Number")
+              GreetingText(message = "Matrix Program")
               Spacer(modifier = Modifier.height(16.dp))
               MatrixInput()
             }
@@ -96,7 +96,8 @@ class MainActivity : ComponentActivity() {
         text = it
         matrixSize = it.toIntOrNull() ?: 0
       },
-      label = { Text("Matrix Generator") }
+      label = { Text("Number's Only") }
+      
     )
 
     Button(onClick = {
