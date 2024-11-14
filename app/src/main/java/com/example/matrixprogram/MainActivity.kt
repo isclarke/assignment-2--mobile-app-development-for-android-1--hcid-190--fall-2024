@@ -134,7 +134,7 @@ class MainActivity : ComponentActivity() {
   private fun defaultMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
     val maxNumber = size * size
-    val width = maxNumber.toString().length
+    val width = maxNumber.toString().length - 2
     val output = StringBuilder()
 
     for ((rowIndex, row) in matrix.withIndex()) {
@@ -150,7 +150,7 @@ class MainActivity : ComponentActivity() {
     val size = matrix.size
     var count = 1
     val maxNumber = size * size
-    val width = maxNumber.toString().length
+    val width = maxNumber.toString().length - 2
     val output = StringBuilder()
 
     for (rowIndex in 0 until size) {
@@ -167,7 +167,7 @@ class MainActivity : ComponentActivity() {
     val size = matrix.size
     val output = StringBuilder()
     val maxNumber = size * size
-    val width = maxNumber.toString().length
+    val width = maxNumber.toString().length - 2
 
     for (rowIndex in 0 until size) {
       for (columnIndex in 0 until size) {
