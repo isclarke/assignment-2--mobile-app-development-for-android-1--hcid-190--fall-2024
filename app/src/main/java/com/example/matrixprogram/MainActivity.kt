@@ -140,7 +140,7 @@ class MainActivity : ComponentActivity() {
 
     for ((rowIndex, row) in matrix.withIndex()) {
       for ((columnIndex, num) in row.withIndex()) {
-        output.append("${num.toString().padStart(width + 2)} ")
+        output.append("${num.toString().padStart(width)} ")
       }
       output.append("\n")
     }
@@ -156,7 +156,7 @@ class MainActivity : ComponentActivity() {
 
     for (rowIndex in 0 until size) {
       for (columnIndex in 0 until size) {
-        output.append("${count.toString().padStart(width + 2)} ")
+        output.append("${count.toString().padStart(width)} ")
         count++
       }
       output.append("\n")
@@ -173,7 +173,7 @@ class MainActivity : ComponentActivity() {
     for (rowIndex in 0 until size) {
       for (columnIndex in 0 until size) {
         val temp = (size * size) - (rowIndex * size + columnIndex)
-        output.append("${temp.toString().padStart(width + 2)} ")
+        output.append("${temp.toString().padStart(width)} ")
       }
       output.append("\n")
     }
