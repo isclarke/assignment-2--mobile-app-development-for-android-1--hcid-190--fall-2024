@@ -65,10 +65,11 @@ class MainActivity : ComponentActivity() {
           for (number in numbers) {
             Text(
               text = number,
-              color = Color.Black, // Default color
+              color = Color.Black,
+              fontSize = 12.dp ,
               modifier = Modifier
-                .weight(1f) // Use weight to evenly distribute space
-                .padding(4.dp), // Padding around each number
+                .weight(1f)
+                .padding(4.dp), 
               textAlign = TextAlign.Center
             )
           }
@@ -97,7 +98,7 @@ class MainActivity : ComponentActivity() {
         matrixSize = it.toIntOrNull() ?: 0
       },
       label = { Text("Number's Only") }
-      
+
     )
 
     Button(onClick = {
@@ -135,7 +136,7 @@ class MainActivity : ComponentActivity() {
   private fun defaultMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
     val maxNumber = size * size
-    val width = maxNumber.toString().length - 2
+    val width = maxNumber.toString().length - 4
     val output = StringBuilder()
 
     for ((rowIndex, row) in matrix.withIndex()) {
@@ -151,7 +152,7 @@ class MainActivity : ComponentActivity() {
     val size = matrix.size
     var count = 1
     val maxNumber = size * size
-    val width = maxNumber.toString().length - 2
+    val width = maxNumber.toString().length - 4
     val output = StringBuilder()
 
     for (rowIndex in 0 until size) {
@@ -168,7 +169,7 @@ class MainActivity : ComponentActivity() {
     val size = matrix.size
     val output = StringBuilder()
     val maxNumber = size * size
-    val width = maxNumber.toString().length - 2
+    val width = maxNumber.toString().length - 4
 
     for (rowIndex in 0 until size) {
       for (columnIndex in 0 until size) {
