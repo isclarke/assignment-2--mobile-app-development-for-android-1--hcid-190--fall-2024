@@ -66,10 +66,9 @@ class MainActivity : ComponentActivity() {
             Text(
               text = number,
               color = Color.Black,
-              fontSize = 12.dp ,
               modifier = Modifier
                 .weight(1f)
-                .padding(4.dp), 
+                .padding(4.dp),
               textAlign = TextAlign.Center
             )
           }
