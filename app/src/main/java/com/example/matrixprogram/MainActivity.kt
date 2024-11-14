@@ -56,32 +56,14 @@ class MainActivity : ComponentActivity() {
   }
 
   @Composable
-  fun GreetingText(message: String, modifier: Modifier = Modifier) {
-    Text(text = message, modifier = modifier)
+  fun matrixOutput() {
+    Te
   }
 
+
   @Composable
-  fun MatrixWithColoredDiagonals(matrixSize: Int, matrixString: String) {
-    val lines = matrixString.split("\n").filter { it.isNotEmpty() }
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-      for ((rowIndex, line) in lines.withIndex()) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-          val numbers = line.trim().split(" ")
-          for ((columnIndex, number) in numbers.withIndex()) {
-            val isDiagonal = columnIndex == rowIndex || columnIndex == matrixSize - 1 - rowIndex
-            val textColor = if (isDiagonal) Color.Red else Color.Black
-            Text(
-              text = number,
-              color = textColor,
-              modifier = Modifier
-                .width(10.dp) // Set a fixed width for better alignment
-                .padding(4.dp),
-              textAlign = TextAlign.Center
-            )
-          }
-        }
-      }
-    }
+  fun GreetingText(message: String, modifier: Modifier = Modifier) {
+    Text(text = message, modifier = modifier)
   }
 
   @Composable
@@ -108,7 +90,7 @@ class MainActivity : ComponentActivity() {
     Spacer(modifier = Modifier.height(16.dp))
 
     if (matrixResult.isNotEmpty()) {
-      MatrixWithColoredDiagonals(matrixSize, matrixResult)
+      matrixOutput(matrixSize, matrixResult)
     }
   }
 
