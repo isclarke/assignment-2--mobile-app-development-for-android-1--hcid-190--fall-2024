@@ -116,22 +116,24 @@ class MainActivity : ComponentActivity() {
   private fun generateMatrix(size: Int): String {
     if (size <= 0) {
       return "Invalid matrix size"
+    } else {
+
+      val matrix = Array(size) { IntArray(size) { 0 } }
+      val output = StringBuilder()
+
+      output.append("Printing matrix with default value: \n")
+      output.append(defaultMatrix(matrix))
+
+      output.append("Printing matrix: \n")
+      output.append(numberMatrix(matrix))
+
+      output.append("Printing flipped matrix: \n")
+      output.append(swapMatrix(matrix))
+
+      return output.toString()
     }
-
-    val matrix = Array(size) { IntArray(size) { 0 } }
-    val output = StringBuilder()
-
-    output.append("Printing matrix with default value: \n")
-    output.append(defaultMatrix(matrix))
-
-    output.append("Printing matrix: \n")
-    output.append(numberMatrix(matrix))
-
-    output.append("Printing flipped matrix: \n")
-    output.append(swapMatrix(matrix))
-
-    return output.toString()
   }
+
   private fun defaultMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
     val maxNumber = size * size
