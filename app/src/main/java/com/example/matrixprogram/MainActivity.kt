@@ -91,7 +91,6 @@ class MainActivity : ComponentActivity() {
     }
   }
 
-
   @Composable
   fun GreetingText(message: String, modifier: Modifier = Modifier) {
     Text(text = message, modifier = modifier)
@@ -110,7 +109,6 @@ class MainActivity : ComponentActivity() {
         matrixSize = it.toIntOrNull() ?: 0
       },
       label = { Text("Number's Only") }
-
     )
 
     Button(onClick = {
