@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import com.example.matrixprogram.ui.theme.MatrixProgramTheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontFamily
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,7 @@ class MainActivity : ComponentActivity() {
           Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
+
           ) {
             Column(
               modifier = Modifier
@@ -60,18 +63,20 @@ class MainActivity : ComponentActivity() {
     val lines = matrixString.split("\n").filter { it.isNotEmpty() }
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
       for ((rowIndex, line) in lines.withIndex()) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(modifier = Modifier.padding(4.dp).fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
           val numbers = line.trim().split(" ")
           for ((columnIndex, number) in numbers.withIndex()) {
             // Check if the current position is on the right-to-left diagonal
-            val isDiagonal = columnIndex == matrixSize - 2 - rowIndex
+            val isDiagonal = columnIndex == matrixSize - 1 - rowIndex
             Text(
               text = number,
               color = if (isDiagonal) Color.Red else Color.Black, // Highlight diagonal numbers
               modifier = Modifier
                 .weight(1f)
                 .padding(4.dp),
-              textAlign = TextAlign.Center
+              textAlign = TextAlign.Center,
+              fontSize =  16.sp,
+              fontFamily = FontFamily.Monospace
             )
           }
         }
@@ -177,7 +182,7 @@ class MainActivity : ComponentActivity() {
         // Check if the current position is on the diagonal
         val isDiagonal = columnIndex == size - 1 - rowIndex
 
-        // If it's a diagonal element, keep its original value
+        // If it's a diagonal element, keep its original va
         val value = if (isDiagonal) {
           (rowIndex * size + columnIndex + 1) // Original value
         } else {
