@@ -76,11 +76,11 @@ class MainActivity : ComponentActivity() {
             // Check if the current position is on the diagonal (based on RED_ prefix)
             val isDiagonal = number.startsWith("RED_")
             Text(
-              text = number.removePrefix("RED_").trim(),  // Remove RED_ for display
+              text = number.removePrefix("RED_").trim(),  // Remove RED marker
               color = if (isDiagonal) Color.Red else Color.Black, // Highlight diagonal numbers
               modifier = Modifier
                 .weight(1f)
-                .padding(horizontal = 1.dp), // Add padding between the columns
+                .padding(horizontal = 1.dp),
               textAlign = TextAlign.Center,
               fontSize = fontSize,
               fontFamily = FontFamily.SansSerif
@@ -155,7 +155,6 @@ class MainActivity : ComponentActivity() {
 
     for ((rowIndex, row) in matrix.withIndex()) {
       for ((columnIndex, num) in row.withIndex()) {
-        // Change the diagonal condition to the right-to-left diagonal
         val isDiagonal = columnIndex == size - 1 - rowIndex
         output.append(
           if (isDiagonal) {
@@ -180,7 +179,6 @@ class MainActivity : ComponentActivity() {
 
     for (rowIndex in 0 until size) {
       for (columnIndex in 0 until size) {
-        // Change the diagonal condition to the right-to-left diagonal
         val isDiagonal = columnIndex == size - 1 - rowIndex
         output.append(
           if (isDiagonal) {
@@ -205,7 +203,7 @@ class MainActivity : ComponentActivity() {
 
     for (rowIndex in 0 until size) {
       for (columnIndex in 0 until size) {
-        // Change the diagonal condition to the right-to-left diagonal
+
         val isDiagonal = columnIndex == size - 1 - rowIndex
 
         // If it's a diagonal element, keep its original value
@@ -221,4 +219,4 @@ class MainActivity : ComponentActivity() {
     }
     return output.toString()
   }
-}
+  }
