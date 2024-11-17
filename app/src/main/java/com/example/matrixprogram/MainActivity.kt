@@ -62,21 +62,27 @@ class MainActivity : ComponentActivity() {
   fun MatrixOutput(matrixSize: Int, matrixString: String) {
     val fontSize = if (matrixSize >= 12) 12.sp else 16.sp
     val lines = matrixString.split("\n").filter { it.isNotEmpty() }
+
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
       for ((rowIndex, line) in lines.withIndex()) {
-        Row(modifier = Modifier.padding(4.dp).fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(
+          modifier = Modifier
+            .padding(4.dp)
+            .fillMaxWidth(),
+          horizontalArrangement = Arrangement.SpaceBetween
+        ) {
           val numbers = line.trim().split(" ")
           for ((columnIndex, number) in numbers.withIndex()) {
             // Check if the current position is on the right-to-left diagonal
-            val isDiagonal = columnIndex == matrixSize - 1 - rowIndex
+            val isDiagonal = columnIndex == matrixSize - rowIndex
             Text(
-              text = number,
+              text = number.trim(),
               color = if (isDiagonal) Color.Red else Color.Black, // Highlight diagonal numbers
               modifier = Modifier
                 .weight(1f)
-                .padding(4.dp),
+                .padding(horizontal = 1.dp), // Add padding between the columns
               textAlign = TextAlign.Center,
-              fontSize =  fontSize,
+              fontSize = fontSize,
               fontFamily = FontFamily.SansSerif
             )
           }
@@ -84,6 +90,7 @@ class MainActivity : ComponentActivity() {
       }
     }
   }
+
 
   @Composable
   fun GreetingText(message: String, modifier: Modifier = Modifier) {
