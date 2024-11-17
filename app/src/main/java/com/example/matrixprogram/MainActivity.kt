@@ -75,8 +75,8 @@ class MainActivity : ComponentActivity() {
                 .weight(1f)
                 .padding(4.dp),
               textAlign = TextAlign.Center,
-              fontSize =  14.sp,
-              fontFamily = FontFamily.Monospace
+              fontSize =  10.sp,
+              fontFamily = FontFamily.SansSerif
             )
           }
         }
@@ -142,7 +142,7 @@ class MainActivity : ComponentActivity() {
   private fun defaultMatrix(matrix: Array<IntArray>): String {
     val size = matrix.size
     val maxNumber = size * size
-    val width = maxNumber.toString().length
+    val width = maxNumber.toString().length - 2
     val output = StringBuilder()
 
     for ((rowIndex, row) in matrix.withIndex()) {
