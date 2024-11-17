@@ -59,13 +59,15 @@ class MainActivity : ComponentActivity() {
   fun MatrixOutput(matrixSize: Int, matrixString: String) {
     val lines = matrixString.split("\n").filter { it.isNotEmpty() }
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-      for (line in lines) {
+      for ((rowIndex, line) in lines.withIndex()) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
           val numbers = line.trim().split(" ")
-          for (number in numbers) {
+          for ((columnIndex, number) in numbers.withIndex()) {
+            // Check if the current position is on the right-to-left diagonal
+            val isDiagonal = columnIndex == matrixSize - 2 - rowIndex
             Text(
               text = number,
-              color = Color.Black,
+              color = if (isDiagonal) Color.Red else Color.Black, // Highlight diagonal numbers
               modifier = Modifier
                 .weight(1f)
                 .padding(4.dp),
@@ -172,8 +174,17 @@ class MainActivity : ComponentActivity() {
 
     for (rowIndex in 0 until size) {
       for (columnIndex in 0 until size) {
-        val temp = (size * size) - (rowIndex * size + columnIndex)
-        output.append("${temp.toString().padStart(width)} ")
+        // Check if the current position is on the diagonal
+        val isDiagonal = columnIndex == size - 1 - rowIndex
+
+        // If it's a diagonal element, keep its original value
+        val value = if (isDiagonal) {
+          (rowIndex * size + columnIndex + 1) // Original value
+        } else {
+          (maxNumber - (rowIndex * size + columnIndex)) // Flipped value
+        }
+
+        output.append("${value.toString().padStart(width)} ")
       }
       output.append("\n")
     }
