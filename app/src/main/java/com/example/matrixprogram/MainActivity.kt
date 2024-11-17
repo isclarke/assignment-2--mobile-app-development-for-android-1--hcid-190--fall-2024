@@ -60,6 +60,7 @@ class MainActivity : ComponentActivity() {
 
   @Composable
   fun MatrixOutput(matrixSize: Int, matrixString: String) {
+    val fontSize = if (matrixSize >= 12) 12.sp else 16.sp
     val lines = matrixString.split("\n").filter { it.isNotEmpty() }
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
       for ((rowIndex, line) in lines.withIndex()) {
@@ -75,7 +76,7 @@ class MainActivity : ComponentActivity() {
                 .weight(1f)
                 .padding(4.dp),
               textAlign = TextAlign.Center,
-              fontSize =  10.sp,
+              fontSize =  fontSize,
               fontFamily = FontFamily.SansSerif
             )
           }
